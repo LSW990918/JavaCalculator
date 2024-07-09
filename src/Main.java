@@ -1,13 +1,18 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Queue<Integer> results = new LinkedList<>();
 
         System.out.print("첫 번째 숫자를 입력하세요: ");
         int firstNumber = sc.nextInt();
 
         int result = firstNumber;
+        results.add(result);
+
         boolean continueCalculation = true;
 
         while (continueCalculation) {
@@ -35,7 +40,30 @@ public class Main {
                 continue;
             }
 
+            results.add(result);
+
             System.out.println("현재 결과: " + result);
+
+            System.out.print("결과를 삭제하시겠습니까? (yes/no): ");
+            String deleteResponse = sc.next();
+
+            if (deleteResponse.equalsIgnoreCase("yes")) {
+                results.poll();
+                System.out.println("첫 번째 결과가 삭제되었습니다.");
+            }
+
+            System.out.print("저장된 모든 결과를 출력하시겠습니까? (yes/no): ");
+            String printAllResponse = sc.next();
+
+            if (printAllResponse.equalsIgnoreCase("yes")) {
+                System.out.print("저장된 모든 결과: ");
+                for (int res : results) {
+                    System.out.print(res + " ");
+                }
+                System.out.println();
+            } else {
+                System.out.println("가장 최근 결과: " + result);
+            }
 
             System.out.print("계산을 계속하시겠습니까? (yes/no): ");
             String userResponse = sc.next();
@@ -46,6 +74,12 @@ public class Main {
         }
 
         System.out.println("최종 결과: " + result);
+        System.out.print("최종 모든 결과: ");
+        for (int res : results) {
+            System.out.print(res + " ");
+        }
+        System.out.println();
+
         sc.close();
     }
 }
